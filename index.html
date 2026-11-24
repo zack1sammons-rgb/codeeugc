@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0C0C">
+<meta name="color-scheme" content="dark">
+<title>Codee Barker | UGC Creator</title>
+<meta name="description" content="Codee Barker makes UGC ads for apps. Send a link to your app, get five scripts, and get your videos back the same day.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%232EC4B6'/%3E%3C/svg%3E">
+<script>
+  document.documentElement.classList.add('js');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/videos/posters/intro.jpg">
+<style>
+  /*
+    Design read: personal portfolio for brand marketers who open it from a DM or an email, mostly on a phone.
+    Same layout and motion as Zack's Oct-9 site, recoloured for Codee: a black page with her team teal (#2EC4B6).
+    Dials: VARIANCE 7 / MOTION 6 / DENSITY 3. One dark theme.
+    Shape rule: buttons are full pills, media and cards are 18px, inputs are 12px.
+  */
+  :root {
+    --bg: #0A0C0C;
+    --surface: #131717;
+    --text: #EEF4F3;
+    --muted: rgba(238, 244, 243, 0.64);
+    --line: rgba(238, 244, 243, 0.14);
+    --blue: #2EC4B6;
+    --blue-deep: #3FD9C9;
+    --on-blue: #04201D;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --pad: clamp(20px, 5vw, 72px);
+    --nav-h: 64px;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    color-scheme: dark;
+    background: var(--bg);
+    scroll-padding-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px) + 12px);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Archivo', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  img, video { display: block; max-width: 100%; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  button, a, .btn { touch-action: manipulation; }
+  button, .btn { user-select: none; -webkit-user-select: none; }
+
+  :focus-visible { outline: 2px solid var(--blue-deep); outline-offset: 3px; border-radius: 6px; }
+
+  .display {
+    font-weight: 800;
+    font-stretch: 112%;
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+  .display em { font-style: italic; color: var(--blue-deep); }
+
+  /* Word masks: each word rises out of its own line. Bottom padding keeps descenders (y, g, p) unclipped. */
+  .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.04em 0.06em 0.14em; margin: -0.04em -0.06em -0.14em; }
+  .wi { display: inline-block; }
+  .js .split .wi { transform: translateY(108%); }
+  .js .split.in .wi {
+    transform: none;
+    transition: transform 700ms var(--ease-out);
+    transition-delay: calc(var(--i) * 40ms);
+  }
+
+  .js .reveal { opacity: 0; transform: translateY(16px); }
+  .js .reveal.in {
+    opacity: 1; transform: none;
+    transition: opacity 600ms var(--ease-out), transform 600ms var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 40ms);
+  }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .skip {
+    position: fixed; top: 12px; left: 12px; z-index: 20; padding: 10px 16px; border-radius: 999px;
+    background: var(--text); color: var(--bg); font-weight: 700; font-size: 14px;
+    transform: translateY(-160%); transition: transform 160ms var(--ease-out);
+  }
+  .skip:focus-visible { transform: none; }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+    height: 48px; padding: 0 24px; border-radius: 999px;
+    font-weight: 700; font-size: 15px; letter-spacing: 0.005em;
+    transition: transform 160ms var(--ease-out), background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  }
+  .btn:active { transform: scale(0.97); }
+  .arrow { display: inline-block; transition: transform 200ms var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn:hover .arrow-down { transform: translateY(2px); }
+    .btn:hover .arrow-right { transform: translateX(3px); }
+  }
+  .btn-blue { background: var(--blue); color: var(--on-blue); }
+  .btn-ghost { border: 1.5px solid rgba(238, 244, 243, 0.32); color: var(--text); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-blue:hover { background: #5CD6CA; }
+    .btn-ghost:hover { border-color: var(--text); background: var(--text); color: var(--bg); }
+  }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+    height: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
+    padding: env(safe-area-inset-top, 0px) var(--pad) 0;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid transparent;
+    transition: background-color 200ms ease, border-color 200ms ease;
+  }
+  .nav.solid { background: rgba(10, 12, 12, 0.82); border-color: var(--line); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .logo { font-weight: 900; font-stretch: 118%; font-size: 17px; letter-spacing: -0.01em; }
+  .logo span { color: var(--blue-deep); }
+  .nav .btn { height: 40px; padding: 0 18px; font-size: 14px; }
+
+  main > section[id] { scroll-margin-top: calc(-1 * (var(--nav-h) + env(safe-area-inset-top, 0px) + 12px) - 3px); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    min-height: 100svh;
+    padding: calc(var(--nav-h) + 56px) var(--pad) 72px;
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: clamp(32px, 6vw, 96px);
+  }
+  /* Dot field: soft light dots, and teal ones that light up under the mouse. */
+  .dots, .glow {
+    position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background-size: 26px 26px; background-position: 13px 13px;
+  }
+  .dots { background-image: radial-gradient(rgba(238, 244, 243, 0.14) 1.2px, transparent 1.7px); }
+  .glow {
+    background-image: radial-gradient(var(--blue-deep) 1.6px, transparent 2.1px);
+    -webkit-mask-image: radial-gradient(240px circle at var(--mx, -999px) var(--my, -999px), #000, transparent 72%);
+            mask-image: radial-gradient(240px circle at var(--mx, -999px) var(--my, -999px), #000, transparent 72%);
+    opacity: 0; transition: opacity 300ms ease;
+  }
+  [data-spotlight].pointer .glow { opacity: 1; }
+  .hero .dots {
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+            mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  }
+  .contact .dots {
+    -webkit-mask-image: linear-gradient(to top, #000 10%, transparent 75%);
+            mask-image: linear-gradient(to top, #000 10%, transparent 75%);
+  }
+
+  .hero h1 { font-size: clamp(38px, 4.6vw, 68px); }
+  .hero h1 .line { display: inline; }
+  @media (min-width: 760px) { .hero h1 .line { display: block; white-space: nowrap; } }
+
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+  .js .hero-ctas { opacity: 0; transform: translateY(8px); }
+  .js .ready .hero-ctas {
+    opacity: 1; transform: none;
+    transition: opacity 400ms var(--ease-out) 200ms, transform 400ms var(--ease-out) 200ms;
+  }
+
+  /* Phone: a real poster, tap to play her intro with sound */
+  .phone {
+    position: relative; display: block; text-align: left;
+    width: 272px; aspect-ratio: 9 / 18.6; padding: 10px; border-radius: 42px;
+    background: #161B1B; border: 1px solid var(--line);
+    box-shadow: 0 44px 84px -34px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(46, 196, 182, 0.18);
+    transform: rotate(3deg);
+    transition: transform 220ms var(--ease-in-out);
+  }
+  .js .phone { opacity: 0; transform: translateY(24px) rotate(6deg); }
+  .js .ready .phone {
+    opacity: 1; transform: rotate(3deg);
+    transition: opacity 600ms var(--ease-out) 120ms, transform 800ms var(--ease-out) 120ms;
+  }
+  .js .ready .phone.settled { transition: transform 220ms var(--ease-in-out); }
+  .js .ready .phone.playing, .phone.playing { transform: rotate(0deg) scale(1.06); transition: transform 280ms var(--ease-in-out); }
+  .phone::before {
+    content: ''; position: absolute; top: 20px; left: 50%; z-index: 3;
+    width: 74px; height: 20px; margin-left: -37px; border-radius: 20px; background: #0A0C0C;
+  }
+  .screen { display: block; position: relative; height: 100%; border-radius: 32px; overflow: hidden; background: #0E1620; }
+  .screen img, .screen video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .screen video { opacity: 0; transition: opacity 250ms ease; }
+  .phone.playing .screen video { opacity: 1; }
+  .screen-ui {
+    position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px;
+    padding: 16px; color: #fff;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent 42%);
+    transition: opacity 200ms ease;
+  }
+  .phone.playing .screen-ui { opacity: 0; }
+  .screen-caption { font-size: 13px; font-weight: 600; max-width: 82%; }
+  .play {
+    position: absolute; top: 50%; left: 50%; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%;
+    display: grid; place-items: center; background: rgba(4, 32, 29, 0.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    font-size: 18px; color: #fff; transition: opacity 200ms ease, transform 160ms var(--ease-out);
+  }
+  .phone:active .play { transform: scale(0.94); }
+  .phone.playing .play { opacity: 0; }
+
+  @media (max-width: 759px) {
+    .hero { grid-template-columns: 1fr; align-content: start; gap: 48px; padding-top: calc(var(--nav-h) + 40px); }
+    .phone { width: 220px; justify-self: center; }
+  }
+
+  /* ---------- Brand bar: always moving, the name under the mouse grows ---------- */
+  .logos { position: relative; border-block: 1px solid var(--line); padding: 26px 0; overflow: hidden; }
+  .logos::before, .logos::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: clamp(48px, 8vw, 120px); z-index: 1; pointer-events: none;
+  }
+  .logos::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+  .logos::after { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+  .logos-track { display: flex; align-items: center; gap: clamp(36px, 5vw, 64px); width: max-content; animation: marquee 42s linear infinite; }
+  .brandword {
+    flex: none; white-space: nowrap; font-weight: 800; font-stretch: 110%;
+    font-size: clamp(16px, 2.1vw, 22px); letter-spacing: -0.01em; color: var(--muted);
+    transition: transform 200ms ease, color 200ms ease;
+  }
+  @keyframes marquee { to { transform: translateX(calc(-50% - 32px)); } }
+  @media (hover: hover) and (pointer: fine) {
+    .brandword:hover { transform: scale(1.14); color: var(--blue-deep); }
+    .media-play:hover .play { background: rgba(4, 32, 29, 0.72); }
+  }
+
+  /* ---------- Sections ---------- */
+  .section { padding: clamp(80px, 11vw, 140px) var(--pad); }
+  .section h2 { font-size: clamp(34px, 4.6vw, 64px); }
+
+  .media { position: relative; }
+  .media-play { position: absolute; inset: 0; border-radius: 18px; }
+  .media-play .play { transition: transform 160ms var(--ease-out), background-color 150ms ease; }
+  .media-play:active .play { transform: scale(0.94); }
+  .media-play[hidden] { display: none; }
+  .about-video video {
+    width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 18px; background: var(--surface);
+  }
+
+  /* ---------- Work: the page's one colour block ---------- */
+  .work {
+    position: relative; overflow: hidden;
+    background: var(--blue); color: var(--on-blue);
+    padding: clamp(64px, 8vw, 104px) var(--pad) clamp(28px, 3.5vw, 44px);
+  }
+  .work :focus-visible { outline-color: var(--on-blue); }
+  .band-head {
+    display: flex; justify-content: center; align-items: center; gap: 0.26em;
+    white-space: nowrap; line-height: 1; letter-spacing: -0.03em;
+    font-size: clamp(18px, 4.7vw, 68px);
+    margin-bottom: clamp(36px, 4.5vw, 60px);
+  }
+  .band-every { font-weight: 900; font-stretch: 125%; }
+  .band-swap {
+    display: inline-grid; height: 1.08em; overflow: hidden;
+    font-weight: 900; font-stretch: 125%;
+    color: transparent; -webkit-text-stroke: clamp(1px, 0.11vw, 1.8px) var(--on-blue);
+  }
+  .band-swap span { grid-area: 1 / 1; text-align: center; line-height: 1.08; transform: translateY(105%); }
+  .band-swap span.on { transform: none; }
+  .band-swap span.off { transform: translateY(-105%); }
+  .band-swap.live span { transition: transform 500ms var(--ease-in-out); }
+  .band-purpose { font-style: italic; font-weight: 800; font-stretch: 100%; padding-bottom: 0.06em; }
+  .band-pause {
+    position: absolute; top: clamp(14px, 2vw, 24px); right: var(--pad); min-height: 32px;
+    font-size: 13px; font-weight: 600; color: rgba(4, 32, 29, 0.66);
+    transition: color 150ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) { .band-pause:hover { color: var(--on-blue); } }
+
+  .reel-wrap { position: relative; margin-inline: calc(var(--pad) * -1); overflow: hidden; }
+  .reel-wrap::before, .reel-wrap::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: clamp(24px, 5vw, 80px); z-index: 1; pointer-events: none;
+  }
+  .reel-wrap::before { left: 0; background: linear-gradient(to right, var(--blue), transparent); }
+  .reel-wrap::after { right: 0; background: linear-gradient(to left, var(--blue), transparent); }
+  .reel { display: flex; gap: 16px; width: max-content; list-style: none; animation: reel 58s linear infinite; }
+  .reel.hold, .work.held .reel { animation-play-state: paused; }
+  @keyframes reel { to { transform: translateX(calc(-50% - 8px)); } }
+  .reel li { flex: none; width: clamp(150px, 15vw, 220px); }
+  .clip { position: relative; }
+  .clip video {
+    width: 100%; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 18px; background: rgba(4, 32, 29, 0.14);
+    outline: 3px solid transparent; outline-offset: 3px; transition: outline-color 150ms ease;
+  }
+  .clip.active video { outline-color: var(--on-blue); }
+  .clip-btn { position: absolute; left: 0; right: 0; top: 0; aspect-ratio: 9 / 16; border-radius: 18px; }
+  .clip figcaption { margin-top: 10px; font-size: 13px; font-weight: 600; color: rgba(4, 32, 29, 0.78); }
+
+  /* About: one row on laptop and up (text, results, video). Stacks only below 860px. */
+  .about, .contact { position: relative; isolation: isolate; overflow: hidden; }
+  /* Heart monitor behind About: a faint trace with a bright sweep running left to right. */
+  .ecg {
+    position: absolute; left: 0; width: 100%; top: 50%; height: clamp(120px, 14vw, 200px);
+    transform: translateY(-50%); z-index: -1; pointer-events: none; overflow: visible;
+    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) 38%, #000 62%);
+            mask-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) 38%, #000 62%);
+  }
+  .ecg path { fill: none; stroke: var(--blue-deep); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .ecg-base { opacity: 0.16; }
+  .ecg-tail { opacity: 0.4; stroke-dasharray: 0.3 2; stroke-dashoffset: 0.3; }
+  .ecg-head { opacity: 0.95; stroke-dasharray: 0.07 2; stroke-dashoffset: 0.07; }
+  @media (prefers-reduced-motion: no-preference) {
+    .ecg-tail { animation: sweep-tail 4.6s linear infinite paused; }
+    .ecg-head { animation: sweep-head 4.6s linear infinite paused; }
+    .about.beating .ecg-tail, .about.beating .ecg-head { animation-play-state: running; }
+  }
+  @media (prefers-reduced-motion: reduce) { .ecg-tail, .ecg-head { display: none; } }
+  @keyframes sweep-head { from { stroke-dashoffset: 0.07; } to { stroke-dashoffset: -1.3; } }
+  @keyframes sweep-tail { from { stroke-dashoffset: 0.3; } to { stroke-dashoffset: -1.07; } }
+
+  .about-row {
+    display: grid; align-items: center; gap: clamp(32px, 4vw, 64px);
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.7fr) minmax(0, 0.75fr);
+  }
+  .about-copy .lead { font-size: clamp(19px, 1.6vw, 23px); line-height: 1.45; margin-top: 24px; max-width: 34ch; }
+  .about-copy .pitch { font-size: clamp(19px, 1.6vw, 23px); line-height: 1.45; font-weight: 700; margin-top: 20px; max-width: 34ch; }
+  .about-copy .body { color: var(--muted); margin-top: 20px; max-width: 52ch; }
+  .stats { display: grid; gap: 36px; }
+  .stat { border-top: 1px solid var(--line); padding-top: 18px; }
+  .stat-num { font-weight: 800; font-stretch: 112%; font-size: clamp(44px, 4.4vw, 68px); line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .stat-num em { font-style: normal; color: var(--blue-deep); }
+  .stat-label { margin-top: 10px; font-size: 13px; color: var(--muted); letter-spacing: 0.02em; }
+  .about-video .media {
+    max-width: 320px; margin-left: auto; padding: 8px; border-radius: 30px;
+    background: #161B1B; border: 1px solid var(--line);
+    box-shadow: 0 36px 76px -32px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(46, 196, 182, 0.16);
+    transform: rotate(-3deg); transition: transform 220ms var(--ease-in-out);
+  }
+  .about-video .media.playing { transform: rotate(0deg) scale(1.08); transition: transform 280ms var(--ease-in-out); z-index: 1; }
+  .about-video video { border-radius: 22px; }
+  .about-video .media-play { inset: 8px; border-radius: 22px; }
+  @media (max-width: 859px) {
+    .about-row { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .stat-num { font-size: clamp(32px, 9.6vw, 56px); }
+    .about-video .media { margin: 0 auto; }
+  }
+
+  /* Contact */
+  .contact { border-top: 1px solid var(--line); }
+  .contact::after {
+    content: ''; position: absolute; z-index: -2; pointer-events: none;
+    left: 50%; bottom: -55%; width: 140%; height: 100%; transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgba(46, 196, 182, 0.22), transparent);
+  }
+  .form-card {
+    padding: clamp(20px, 3vw, 32px); border-radius: 18px;
+    background: rgba(19, 23, 23, 0.86); border: 1px solid var(--line);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  .form-card input, .form-card textarea { background: var(--bg); }
+  .contact h2 { max-width: 20ch; }
+  .contact-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); margin-top: 48px; align-items: start; }
+  .contact .sub { color: var(--muted); }
+  form { display: grid; gap: 18px; margin-top: 24px; max-width: 520px; }
+  .field { display: grid; gap: 8px; }
+  label { font-size: 14px; font-weight: 600; }
+  input, textarea {
+    width: 100%; font: inherit; font-size: 16px; color: var(--text);
+    background: var(--surface); border: 1px solid rgba(238, 244, 243, 0.22); border-radius: 12px;
+    padding: 14px 16px; transition: border-color 150ms ease;
+  }
+  input::placeholder, textarea::placeholder { color: rgba(238, 244, 243, 0.5); }
+  input:focus-visible, textarea:focus-visible { outline: 2px solid var(--blue-deep); outline-offset: 1px; border-color: transparent; }
+  textarea { resize: vertical; min-height: 120px; }
+  form .btn { justify-self: start; border: 0; }
+  form .btn:disabled { opacity: 0.6; cursor: progress; }
+  .form-note { font-size: 15px; font-weight: 600; }
+  .form-note:empty { margin-top: -18px; }
+  .email-label { font-size: 15px; color: var(--muted); }
+  .email-link {
+    display: inline-block; margin-top: 10px; font-weight: 800; font-stretch: 110%;
+    font-size: clamp(20px, 2.2vw, 28px); overflow-wrap: anywhere;
+    border-bottom: 2px solid var(--blue-deep); padding-bottom: 4px;
+    transition: color 150ms ease;
+  }
+  @media (hover: hover) and (pointer: fine) { .email-link:hover { color: var(--blue-deep); } }
+  @media (max-width: 759px) { .contact-grid { grid-template-columns: 1fr; } }
+
+  footer {
+    padding: 28px var(--pad) calc(28px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px;
+    font-size: 14px; color: var(--muted);
+  }
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  @media (hover: hover) and (pointer: fine) { footer a { transition: color 150ms ease; } footer a:hover { color: var(--text); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js .split .wi, .js .reveal, .js .hero-ctas, .js .phone { transform: none !important; }
+    .js .reveal, .js .hero-ctas, .js .phone { opacity: 1 !important; }
+    .js .split.in .wi { transition: none; }
+    .js .reveal.in { transition: opacity 200ms ease; }
+    .logos-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; row-gap: 20px; padding: 0 var(--pad); }
+    .logos-track [aria-hidden], .band-pause { display: none; }
+    .reel { animation: none; width: auto; padding-inline: var(--pad); }
+    .reel-wrap { overflow-x: auto; overscroll-behavior-x: contain; }
+    .phone, .phone.playing { transition: none; }
+    .about-video .media, .about-video .media.playing { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#work">Skip to my work</a>
+
+<header class="nav" id="nav">
+  <a href="#hero" class="logo" translate="no" aria-label="Codee Barker, back to top">CODEE BARKER<span>.</span></a>
+  <a href="#contact" class="btn btn-ghost">Work with me</a>
+</header>
+
+<main>
+  <section class="hero" id="hero" data-spotlight>
+    <div class="dots" aria-hidden="true"></div>
+    <div class="glow" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <h1 class="display split"><span class="line">I make apps feel</span> <span class="line"><em>native</em> on your FYP.</span></h1>
+      <div class="hero-ctas">
+        <a href="#about" class="btn btn-blue">See why it works <span class="arrow arrow-down" aria-hidden="true">↓</span></a>
+        <a href="#contact" class="btn btn-ghost">Work with me</a>
+      </div>
+    </div>
+    <button class="phone" id="phone" type="button" aria-label="Play my intro">
+      <span class="screen">
+        <img src="assets/videos/posters/intro.jpg" alt="" width="720" height="1280" fetchpriority="high">
+        <video id="phoneVideo" loop playsinline preload="none" poster="assets/videos/posters/intro.jpg" src="assets/videos/intro.mp4"></video>
+        <span class="screen-ui">
+          <span class="screen-caption">“Send me your app.”</span>
+        </span>
+        <span class="play" aria-hidden="true">▶</span>
+      </span>
+    </button>
+  </section>
+
+  <div class="logos" id="logos">
+    <div class="logos-track">
+      <span class="brandword">Send a link to your app</span><span class="brandword">5 scripts</span><span class="brandword">5 unique hooks</span><span class="brandword">25 filmed videos</span><span class="brandword">Back the same day</span><span class="brandword">Ready for Meta</span><span class="brandword">Built for A/B testing</span><span class="brandword">No product to ship</span>
+      <span class="brandword" aria-hidden="true">Send a link to your app</span><span class="brandword" aria-hidden="true">5 scripts</span><span class="brandword" aria-hidden="true">5 unique hooks</span><span class="brandword" aria-hidden="true">25 filmed videos</span><span class="brandword" aria-hidden="true">Back the same day</span><span class="brandword" aria-hidden="true">Ready for Meta</span><span class="brandword" aria-hidden="true">Built for A/B testing</span><span class="brandword" aria-hidden="true">No product to ship</span>
+    </div>
+  </div>
+
+  <section class="section about" id="about">
+    <svg class="ecg" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="ecg-base" pathLength="1" d="M0 110H70L78 103L86 103L94 110H120L128 120L138 28L148 152L156 110H190L205 94L222 94L236 110H300H370L378 103L386 103L394 110H420L428 120L438 28L448 152L456 110H490L505 94L522 94L536 110H600H670L678 103L686 103L694 110H720L728 120L738 28L748 152L756 110H790L805 94L822 94L836 110H900H970L978 103L986 103L994 110H1020L1028 120L1038 28L1048 152L1056 110H1090L1105 94L1122 94L1136 110H1200"/><path class="ecg-tail" pathLength="1" d="M0 110H70L78 103L86 103L94 110H120L128 120L138 28L148 152L156 110H190L205 94L222 94L236 110H300H370L378 103L386 103L394 110H420L428 120L438 28L448 152L456 110H490L505 94L522 94L536 110H600H670L678 103L686 103L694 110H720L728 120L738 28L748 152L756 110H790L805 94L822 94L836 110H900H970L978 103L986 103L994 110H1020L1028 120L1038 28L1048 152L1056 110H1090L1105 94L1122 94L1136 110H1200"/><path class="ecg-head" pathLength="1" d="M0 110H70L78 103L86 103L94 110H120L128 120L138 28L148 152L156 110H190L205 94L222 94L236 110H300H370L378 103L386 103L394 110H420L428 120L438 28L448 152L456 110H490L505 94L522 94L536 110H600H670L678 103L686 103L694 110H720L728 120L738 28L748 152L756 110H790L805 94L822 94L836 110H900H970L978 103L986 103L994 110H1020L1028 120L1038 28L1048 152L1056 110H1090L1105 94L1122 94L1136 110H1200"/></svg>
+    <div class="about-row">
+      <div class="about-copy">
+        <h2 class="display split">Most UGC ads get skipped.</h2>
+        <p class="lead reveal">We’ve all built internal ad blockers. We skip. We scroll. We zone out.</p>
+        <p class="pitch reveal">Let me build an ad for you that doesn’t feel like an ad (but still sells like crazy):</p>
+        <p class="body reveal">I make ads people watch for entertainment. They relate to a problem, then get the best fix: your app. Send me a link to your app and you get five scripts, then the filmed videos back the same&nbsp;day.</p>
+      </div>
+      <div class="stats">
+        <div class="stat reveal" style="--i:0">
+          <div class="stat-num"><span class="count" data-to="200" data-dec="0">200</span><em>+</em></div>
+          <div class="stat-label">Brands my team has made ads for</div>
+        </div>
+        <div class="stat reveal" style="--i:2">
+          <div class="stat-num"><span class="count" data-to="25" data-dec="0">25</span></div>
+          <div class="stat-label">Videos back the same day</div>
+        </div>
+      </div>
+      <div class="about-video reveal" style="--i:3">
+        <div class="media"><video preload="none" playsinline poster="assets/videos/posters/gratitude-plus.jpg" src="assets/videos/gratitude-plus.mp4"></video><button class="media-play" type="button" aria-label="Play the Gratitude Plus ad"><span class="play" aria-hidden="true">▶</span></button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="work" id="work">
+    <h2 class="band-head">
+      <span class="sr-only">Every hook, second, cut and frame, on purpose.</span>
+      <span class="band-every" aria-hidden="true">EVERY</span>
+      <span class="band-swap" id="bandSwap" aria-hidden="true"><span class="on">HOOK.</span><span>SECOND.</span><span>CUT.</span><span>FRAME.</span></span>
+      <span class="band-purpose" aria-hidden="true">on purpose.</span>
+    </h2>
+    <button class="band-pause" id="bandPause" type="button" aria-pressed="false">Pause</button>
+    <div class="reel-wrap"><ul class="reel" id="reel" aria-label="Past work"></ul></div>
+  </section>
+
+  <section class="section contact" id="contact" data-spotlight>
+    <div class="dots" aria-hidden="true"></div>
+    <div class="glow" aria-hidden="true"></div>
+    <h2 class="display split">Your app could be <em>everywhere.</em> Want to make that happen?</h2>
+    <div class="contact-grid">
+      <div class="form-card reveal">
+        <p class="sub">Fill in the details and I’ll reach out!</p>
+        <form id="inquiry" novalidate>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="jordan@brand.com" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" enterkeyhint="next" aria-describedby="formNote" required>
+          </div>
+          <div class="field">
+            <label for="details">What app are you growing?</label>
+            <textarea id="details" name="message" autocomplete="off" placeholder="Tell me about the app, timeline, and budget range…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-blue" id="submitBtn">Send inquiry <span class="arrow arrow-right" aria-hidden="true">→</span></button>
+          <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="reveal" style="--i:2">
+        <p class="email-label">Here’s my email if that’s easier</p>
+        <a class="email-link" href="mailto:ugcodee@gmail.com?subject=UGC%20inquiry">ugcodee@gmail.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>Codee Barker</span>
+  <nav aria-label="Contact">
+    <a href="mailto:ugcodee@gmail.com">ugcodee@gmail.com</a>
+  </nav>
+</footer>
+
+<script>
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  // One video with sound at a time (the silent clips in the row can run side by side)
+  document.addEventListener('play', e => {
+    const v = e.target;
+    if (v.muted) return;
+    document.querySelectorAll('video').forEach(o => { if (o !== v && !o.muted) o.pause(); });
+    if (v.id !== 'phoneVideo') phone.classList.remove('playing');
+    if (activeClip && v !== activeClip) setActive(null);
+  }, true);
+
+  // Featured video: tilted at rest; it grows and straightens while it plays
+  const featured = document.querySelector('.about-video video');
+  featured.addEventListener('play', () => featured.parentElement.classList.add('playing'));
+  ['pause', 'ended'].forEach(ev => featured.addEventListener(ev, () => featured.parentElement.classList.remove('playing')));
+
+  // Featured video: tap the cover to play; the browser's own controls take over from there
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.media-play');
+    if (!btn) return;
+    const v = btn.previousElementSibling;
+    v.controls = true; btn.hidden = true;
+    v.play().catch(() => {});
+  });
+
+  // Split headings into word masks
+  document.querySelectorAll('.split').forEach(el => {
+    let i = 0;
+    const wrap = node => {
+      [...node.childNodes].forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(s => {
+            if (!s) return;
+            if (/^\s+$/.test(s)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const w = document.createElement('span'); w.className = 'w';
+            const wi = document.createElement('span'); wi.className = 'wi'; wi.textContent = s;
+            wi.style.setProperty('--i', i++);
+            w.appendChild(wi); frag.appendChild(w);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1) {
+          wrap(n);
+        }
+      });
+    };
+    wrap(el);
+  });
+
+  // Count numbers up the first time they are seen
+  function countUp(el) {
+    const to = parseFloat(el.dataset.to), dec = +el.dataset.dec || 0, dur = 1400, t0 = performance.now();
+    (function tick(now) {
+      const p = Math.min(1, (now - t0) / dur);
+      el.textContent = (to * (p === 1 ? 1 : 1 - Math.pow(2, -10 * p))).toLocaleString("en-US", {minimumFractionDigits: dec, maximumFractionDigits: dec});
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+  }
+  if (!reduceMotion) document.querySelectorAll('.count').forEach(el => { el.textContent = (0).toFixed(+el.dataset.dec || 0); });
+
+  // Reveal once on scroll
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    if (!reduceMotion) e.target.querySelectorAll('.count').forEach(countUp);
+    io.unobserve(e.target);
+  }), { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+
+  // Hero entrance waits for the fonts so the words don't reflow mid-rise
+  const hero = document.getElementById('hero');
+  function start() {
+    if (start.done) return; start.done = true;
+    hero.classList.add('ready');
+    hero.querySelector('h1').classList.add('in');
+    document.querySelectorAll('.split:not(.in), .reveal').forEach(el => io.observe(el));
+  }
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(start);
+  setTimeout(start, 700);
+
+  // Heart monitor in About: only runs while the section is on screen
+  const about = document.getElementById('about');
+  new IntersectionObserver(([e]) => about.classList.toggle('beating', e.isIntersecting)).observe(about);
+
+  // Nav turns solid once the hero scrolls away
+  const nav = document.getElementById('nav');
+  new IntersectionObserver(([e]) => nav.classList.toggle('solid', !e.isIntersecting), { rootMargin: '-80px 0px 0px 0px' })
+    .observe(document.querySelector('.hero-copy'));
+
+  // Teal dots light up under the cursor (mouse only)
+  if (finePointer && !reduceMotion) {
+    document.querySelectorAll('[data-spotlight]').forEach(sec => {
+      const glow = sec.querySelector('.glow');
+      let raf = 0, x = 0, y = 0;
+      sec.addEventListener('pointermove', e => {
+        x = e.pageX - sec.offsetLeft; y = e.pageY - sec.offsetTop;
+        sec.classList.add('pointer');
+        if (!raf) raf = requestAnimationFrame(() => { glow.style.setProperty('--mx', x + 'px'); glow.style.setProperty('--my', y + 'px'); raf = 0; });
+      });
+      sec.addEventListener('pointerleave', () => sec.classList.remove('pointer'));
+    });
+  }
+
+  // Phone: tap to straighten and play with sound, tap again to pause
+  const phone = document.getElementById('phone');
+  const phoneVideo = document.getElementById('phoneVideo');
+  phone.addEventListener('transitionend', e => { if (e.propertyName === 'transform') phone.classList.add('settled'); });
+  setTimeout(() => phone.classList.add('settled'), 1500);
+  phone.addEventListener('click', () => {
+    const on = phone.classList.toggle('playing');
+    phone.setAttribute('aria-label', on ? 'Pause my intro' : 'Play my intro');
+    if (on) { phoneVideo.currentTime = 0; phoneVideo.play().catch(() => {}); } else { phoneVideo.pause(); }
+  });
+
+  // Her ads. Five clips are narrower than a wide screen, so the row repeats them, then doubles that for the seamless loop.
+  const clips = [
+    ['Intro', 'intro'], ['Dove (spec ad)', 'dove'], ['Brick (spec ad)', 'brick'], ['nello (spec ad)', 'nello'], ['Gratitude Plus (spec ad)', 'gratitude-plus'],
+  ];
+  const row = clips.concat(clips);
+  const card = ([name, slug], copy) =>
+    `<li${copy ? ' aria-hidden="true"' : ''}><figure class="clip">` +
+    `<video muted loop playsinline preload="none" poster="assets/videos/posters/${slug}.jpg" src="assets/videos/${slug}.mp4"></video>` +
+    `<button class="clip-btn" type="button" aria-pressed="false"${copy ? ' tabindex="-1"' : ''} aria-label="Play the ${name} ad with sound"></button>` +
+    `<figcaption translate="no">${name}</figcaption></figure></li>`;
+  const reel = document.getElementById('reel');
+  reel.innerHTML = clips.map(c => card(c, false)).join('') + (reduceMotion ? '' : row.concat(clips).map(c => card(c, true)).join(''));
+
+  const work = document.getElementById('work');
+  const reelVideos = [...reel.querySelectorAll('video')];
+  const autoplay = !reduceMotion && !(navigator.connection && navigator.connection.saveData);
+  let activeClip = null, workVisible = false, held = false, scanTimer = 0;
+
+  // Only the clips actually on screen play; everything else sits on its poster
+  function scan() {
+    const vw = innerWidth;
+    reelVideos.forEach(v => {
+      if (v === activeClip) return;
+      const r = v.getBoundingClientRect();
+      const play = autoplay && workVisible && !held && r.right > -40 && r.left < vw + 40;
+      if (play && v.paused) v.play().catch(() => {});
+      else if (!play && !v.paused) v.pause();
+    });
+  }
+
+  // Tap a clip: sound on, row holds still. Tap it again: back to silent and moving.
+  function setActive(v) {
+    if (activeClip) {
+      const old = activeClip; activeClip = null;
+      old.muted = true;
+      old.closest('.clip').classList.remove('active');
+      old.nextElementSibling.setAttribute('aria-pressed', 'false');
+    }
+    if (v) {
+      activeClip = v;
+      v.muted = false; v.currentTime = 0; v.play().catch(() => {});
+      v.closest('.clip').classList.add('active');
+      v.nextElementSibling.setAttribute('aria-pressed', 'true');
+    }
+    reel.classList.toggle('hold', !!activeClip);
+    scan();
+  }
+  reel.addEventListener('click', e => {
+    const b = e.target.closest('.clip-btn');
+    if (!b) return;
+    const v = b.previousElementSibling;
+    setActive(activeClip === v ? null : v);
+  });
+
+  new IntersectionObserver(([e]) => {
+    workVisible = e.isIntersecting;
+    clearInterval(scanTimer);
+    if (workVisible) { scan(); scanTimer = setInterval(scan, 250); }
+    else { if (activeClip) setActive(null); scan(); }
+  }, { rootMargin: '100px 0px' }).observe(work);
+
+  // Work heading: cycle the word after EVERY while it is on screen; Pause holds the words, the row and the clips
+  if (!reduceMotion) {
+    const swap = document.getElementById('bandSwap');
+    const words = [...swap.children];
+    let at = 0, timer = 0;
+    swap.classList.add('live');
+    const next = () => {
+      const cur = words[at]; at = (at + 1) % words.length; const nxt = words[at];
+      words.forEach(w => {
+        if (w === cur || w === nxt) return;
+        w.style.transition = 'none'; w.className = ''; void w.offsetHeight; w.style.transition = '';
+      });
+      cur.className = 'off'; nxt.className = 'on';
+    };
+    let visible = false;
+    const run = () => { clearInterval(timer); if (visible && !held) timer = setInterval(next, 1400); };
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; run(); }).observe(swap);
+    document.getElementById('bandPause').addEventListener('click', e => {
+      held = !held;
+      work.classList.toggle('held', held);
+      e.currentTarget.setAttribute('aria-pressed', held);
+      e.currentTarget.textContent = held ? 'Play' : 'Pause';
+      run(); scan();
+    });
+  }
+
+  // Contact: compose an email to Codee with the details (no third-party form service)
+  const form = document.getElementById('inquiry');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const note = document.getElementById('formNote');
+    if (!form.email.checkValidity()) {
+      form.email.setAttribute('aria-invalid', 'true');
+      note.textContent = 'Add an email so I can reply.';
+      form.email.focus();
+      return;
+    }
+    form.email.removeAttribute('aria-invalid');
+    const body = `From: ${form.email.value}\n\n${form.message.value || ''}`;
+    window.location.href = 'mailto:ugcodee@gmail.com?subject=' +
+      encodeURIComponent('New UGC inquiry from your site') + '&body=' + encodeURIComponent(body);
+    note.textContent = 'Opening your email app… if nothing happens, write me at ugcodee@gmail.com.';
+  });
+</script>
+
+</body>
+</html>
